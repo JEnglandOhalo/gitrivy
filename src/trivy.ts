@@ -7,7 +7,10 @@ export function scan(
   image: string,
   option: TrivyCmdOption
 ): string | undefined {
+  
   const args = [
+    'image',
+    image,
     '--severity',
     option.severity,
     '--vuln-type',
@@ -23,8 +26,7 @@ export function scan(
   ];
 
   if (option.ignoreUnfixed) args.push('--ignore-unfixed');
-  args.push(image);
-
+  
   const result = spawnSync(trivyPath, args, { encoding: 'utf-8' });
   switch (result.status) {
     case 0:
